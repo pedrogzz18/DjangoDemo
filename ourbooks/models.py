@@ -1,5 +1,6 @@
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, Group, Permission
+from django.contrib.auth.models import UserManager, AbstractBaseUser, BaseUserManager, PermissionsMixin, Group, Permission
 from django.db import models
+from django.conf import settings
 
 class libros:
     pass
@@ -18,48 +19,32 @@ class CustomUserManager(BaseUserManager):
         return user
 
     def create_superuser(self, email, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
 
         return self.create_user(email, password, **extra_fields)
 
-class Editorial(AbstractBaseUser, PermissionsMixin):
+class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     is_active = models.BooleanField(default=True)
-    is_editorial = models.BooleanField(default=True)
-    editorial_name = models.CharField(max_length=100, unique=True)
-
+    is_staff = models.BooleanField(default=False)
+    USERNAME_FIELD = 'email'
     objects = CustomUserManager()
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['email', 'editorial_name']
+class Editorial(models.Model):
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        default=None
+    )
+    editorial_name = models.CharField(max_length=30)
 
-    def get_full_name(self):
-        return self.email
-
-    def get_short_name(self):
-        return self.editorial_name
-    
-    groups = models.ManyToManyField(Group, related_name='editorial_groups')
-    user_permissions = models.ManyToManyField(Permission, related_name='editorial_user_permissions')
-
-class Reader(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField(max_length=128)
-    email = models.EmailField(unique=True)
+class Reader(models.Model):
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        default=None
+    )
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-    is_active = models.BooleanField(default=True)
-    is_editorial = models.BooleanField(default=False)
-
-    objects = CustomUserManager()
-
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'email']
-
-    def get_full_name(self):
-        return f"{self.first_name} {self.last_name}"
-
-    def get_short_name(self):
-        return self.username
     
-    groups = models.ManyToManyField(Group, related_name='reader_groups')
-    user_permissions = models.ManyToManyField(Permission, related_name='lector_user_permissions')

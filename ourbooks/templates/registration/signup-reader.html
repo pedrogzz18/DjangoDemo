@@ -1,0 +1,17 @@
+{% extends "header.html" %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'ourbooks/signup.css' %}">
+<div class="signup-form">
+<h2>Signup for editorials</h2>
+	<form class="signup" method="POST">
+			<div>
+				{% csrf_token %}
+				{{ reader_form.as_p }}
+				{{ user_form.as_p }}
+				<input type="submit" value="Signup"/>
+			</div>
+	</form>
+</div>
+{% endblock %}
