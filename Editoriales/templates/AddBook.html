@@ -1,0 +1,12 @@
+{% extends "header.html" %}
+{% load static %}
+
+
+{% block content %}
+<h2>Create Book!!</h2>
+<form method ="post" action="{% url 'create_book' %}">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit" value = "Create Book">Submit</button>
+</form>
+{% endblock %}

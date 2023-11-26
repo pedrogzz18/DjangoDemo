@@ -1,0 +1,15 @@
+{% extends "header.html" %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'ourbooks/header.css' %}">
+
+{% block content%}
+<h1>You have succesfully logged in</h1>
+<a href="{% url 'addbook' %}"> Add New Book</a>
+<h1>My Books</h1>
+<ul>
+    {% for book in my_books %}
+    <li>{{ book.book_name }} Num:pages {{ book.pages }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

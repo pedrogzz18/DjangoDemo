@@ -7,16 +7,12 @@
 <a>My books</a>
 <a>My reviews</a>
 <a>Profile</a>
-<h1>Hi {{ reader.username }}!</h1>
-<p> What's new? </p>
 
 <div class="books-container">
-    {% for book in Books %}
         <div class="book-item">
             <img src="{{ book.image_url }}" alt="{{ book.book_name }}" width="200" height="300">
-            <p><a href="{% url 'book_view'  pk=book.id %}">d</a>{{ book.book_name }} - {{ book.description }}</p>
+            <p>{{ book.book_name }} - {{ book.description }}</p>
         </div>
-    {% endfor %}
 </div>
 
 {% endblock %}
