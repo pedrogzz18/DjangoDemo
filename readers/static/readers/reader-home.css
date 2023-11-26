@@ -1,0 +1,15 @@
+.books-container {
+    display: flex;
+    flex-wrap: nowrap; /* Evitar que se envuelvan a la siguiente línea */
+    overflow-x: auto;  /* Agregar desplazamiento horizontal si hay muchos libros */
+}
+
+.book-item {
+    margin-right: 10px; /* Ajustar el margen entre libros */
+    text-align: center;
+}
+
+.book-item img {
+    max-width: 100%;
+    height: auto;
+}

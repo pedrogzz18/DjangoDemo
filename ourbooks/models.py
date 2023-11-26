@@ -1,12 +1,6 @@
-from django.contrib.auth.models import UserManager, AbstractBaseUser, BaseUserManager, PermissionsMixin, Group, Permission
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, Group, Permission
 from django.db import models
 from django.conf import settings
-
-class libros:
-    pass
-
-class libros_editorial:
-    pass
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -31,7 +25,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     objects = CustomUserManager()
 
-
 class Editorial(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
@@ -48,3 +41,4 @@ class Reader(models.Model):
     )
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
+    username = models.CharField(max_length=30)
