@@ -6,7 +6,7 @@
 {% block content %}
 <a>My books</a>
 <a>My reviews</a>
-<a>Profile</a>
+<a href="{% url 'profile_view' %}">Profile</a>
 <h1>Hi {{ reader.username }}!</h1>
 <p> What's new? </p>
 

@@ -1,0 +1,13 @@
+{% extends "header.html" %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'readers/reader-home.css' %}">
+
+{% block content %}
+<a>My profile is here</a>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Update" />
+  </form>
+{% endblock %}
