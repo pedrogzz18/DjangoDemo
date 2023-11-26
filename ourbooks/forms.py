@@ -18,4 +18,4 @@ class EditorialRegistrationForm(forms.ModelForm):
 class ReaderRegistrationForm(forms.ModelForm):
     class Meta:
         model = Reader
-        fields = ['first_name', 'last_name']
+        fields = ['first_name', 'last_name', 'username']
