@@ -25,6 +25,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     objects = CustomUserManager()
 
+
 class Editorial(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
@@ -41,4 +42,3 @@ class Reader(models.Model):
     )
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-    
