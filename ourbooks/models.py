@@ -1,8 +1,15 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, Group, Permission
 from django.db import models
 
-class libros:
-    pass
+class Books(models.Model):
+    book_name = models.CharField(max_length = 100)
+    pages = models.IntegerField()
+    publication_year = models.CharField(max_length=30)
+    description = models.CharField(max_length = 300)
+    image_url = models.CharField(max_length =250)
+    author_first_name = models.CharField(max_length = 40)
+    author_last_name = models.CharField(max_length=40)
+    editorial_mail = models.CharField(max_length = 75)
 
 class libros_editorial:
     pass
@@ -31,7 +38,7 @@ class Editorial(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['email', 'editorial_name']
+    REQUIRED_FIELDS = ['editorial_name']
 
     def get_full_name(self):
         return self.email
@@ -63,3 +70,4 @@ class Reader(AbstractBaseUser, PermissionsMixin):
     
     groups = models.ManyToManyField(Group, related_name='reader_groups')
     user_permissions = models.ManyToManyField(Permission, related_name='lector_user_permissions')
+
