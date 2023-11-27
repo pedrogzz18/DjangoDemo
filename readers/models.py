@@ -2,13 +2,23 @@ from django.db import models
 from ourbooks.models import Reader, Editorial
 from Editoriales.models import Books
 
-class Ownership(models.Model):
-    book_id = models.ForeignKey(to=Books, on_delete=models.CASCADE)
-    reader_id = models.ForeignKey(to=Reader, on_delete=models.CASCADE)
-    is_purchase = models.BooleanField(default=True)
-    is_borrowed = models.BooleanField(default=False)
-    
+class Purchase(models.Model):
+    book = models.ForeignKey(to=Books, on_delete=models.CASCADE)
+    reader = models.ForeignKey(to=Reader, on_delete=models.CASCADE)
+    date = models.DateField()
+
     class Meta:
-        unique_together = ('reader_id', 'book_id',)
+        unique_together = ('reader', 'book',)
+
+class Share(models.Model):
+    book = models.ForeignKey(to=Books, on_delete=models.CASCADE)
+    reader = models.ForeignKey(to=Reader, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('reader', 'book',)
+
+class OwnerShare(models.Model):
+    share = models.OneToOneField(to=Share, on_delete=models.CASCADE)
+    book_owner = models.ForeignKey(to=Reader, on_delete=models.CASCADE)
 
 

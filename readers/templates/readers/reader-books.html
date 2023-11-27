@@ -6,15 +6,10 @@
 {% block content %}
 
 <div class="books-container">
-    {% for book in Books %}
+    {% for purchase in Purchases %}
         <div class="book-item">
-            <img src="{{ book.book_id.image_url }}" alt="{{ book.book_id.book_name }}" width="200" height="300">
-            <p><a href="{% url 'book_view'  pk=book.id %}">d</a>{{ book.book_id.book_name }} - {{ book.book_id.description }}</p>
-            {% if book.is_purchase %}
-                <p>Purchased</p>
-            {% else %}
-                <p>Borrowed</p>
-            {% endif %}
+            <img src="{{ purchase.book.image_url }}" alt="{{ purchase.book.book_name }}" width="200" height="300">
+            <p><a href="{% url 'book_view'  pk=purchase.book.id %}">d</a>{{ purchase.book.book_name }} - {{ purchase.book.description }}</p>
         </div>
     {% endfor %}
 </div>
