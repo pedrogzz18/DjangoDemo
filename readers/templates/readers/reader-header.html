@@ -3,10 +3,10 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'readers/reader-home.css' %}">
 {% block head %}
-<a>My books</a>
+<a href="{% url 'reader_home' %}">Home</a>
+<a href="{% url 'my_books' %}">My books</a>
 <a>My reviews</a>
 <a href="{% url 'profile_view' %}">Profile</a>
-<a>Logout</a>
 {% endblock %}
 
 {% block content %}

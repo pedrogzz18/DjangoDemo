@@ -72,7 +72,7 @@ class ReaderUpdateView(UpdateView):
     template_name = 'readers/reader-profile.html'
     context_object_name = 'user'
     success_url = reverse_lazy('reader_home')
-    fields = '__all__'
+    fields = ['first_name', 'last_name', 'username']
     pk_url_kwarg = 'pk'
     
     def get_object(self, queryset=None):
@@ -87,3 +87,14 @@ def buy_book(request, pk):
     ownership.save()
     # Redirect to the generated URL
     return redirect('book_view', pk)
+
+@method_decorator(user_passes_test(reader_check), name='dispatch')
+class MyBooksListView(ListView):
+    model = Ownership
+    template_name = 'readers/reader-books.html'
+    context_object_name = 'Books'
+    fields = ['book_id']
+
+    def get_queryset(self):
+        #filtrate by user
+        return Ownership.objects.filter(reader_id=get_reader(self.request))

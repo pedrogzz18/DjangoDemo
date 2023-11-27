@@ -1,0 +1,22 @@
+{% extends "readers/reader-header.html" %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'readers/reader-home.css' %}">
+
+{% block content %}
+
+<div class="books-container">
+    {% for book in Books %}
+        <div class="book-item">
+            <img src="{{ book.book_id.image_url }}" alt="{{ book.book_id.book_name }}" width="200" height="300">
+            <p><a href="{% url 'book_view'  pk=book.id %}">d</a>{{ book.book_id.book_name }} - {{ book.book_id.description }}</p>
+            {% if book.is_purchase %}
+                <p>Purchased</p>
+            {% else %}
+                <p>Borrowed</p>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
