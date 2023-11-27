@@ -20,5 +20,7 @@ class Share(models.Model):
 class OwnerShare(models.Model):
     share = models.OneToOneField(to=Share, on_delete=models.CASCADE)
     book_owner = models.ForeignKey(to=Reader, on_delete=models.CASCADE)
+    class Meta:
+        unique_together = ('share', 'book_owner',)
 
 
