@@ -98,3 +98,7 @@ class MyBooksListView(ListView):
     def get_queryset(self):
         #filtrate by user
         return Ownership.objects.filter(reader_id=get_reader(self.request))
+    
+def logout_request(request):
+    logout(request)
+    return redirect('/accounts/login')
