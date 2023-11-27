@@ -9,6 +9,6 @@ class Ownership(models.Model):
     is_borrowed = models.BooleanField(default=False)
     
     class Meta:
-        unique_together = ('book_id', 'reader_id', 'is_purchase')
+        unique_together = ('reader_id', 'book_id',)
 
 
