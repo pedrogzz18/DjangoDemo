@@ -1,4 +1,4 @@
-{% extends "header.html" %}
+{% extends "readers/reader-header.html" %}
 {% load static %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'readers/reader-home.css' %}">
@@ -10,4 +10,5 @@
     {{ form.as_p }}
     <input type="submit" value="Update" />
   </form>
+
 {% endblock %}
