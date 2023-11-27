@@ -18,6 +18,8 @@ from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.contrib.auth import logout
 import datetime
+import json
+from django.http import JsonResponse
 # Create your views here.
 
 @user_passes_test(reader_check)
@@ -104,13 +106,30 @@ class MyBooksListView(ListView):
 @method_decorator(user_passes_test(reader_check), name='dispatch')
 class SharedWithMeView(ListView):
     model = Share
-    template_name = 'readers/reader-books.html'
+    template_name = 'readers/shared-with-me.html'
     context_object_name = 'Shares'
     fields = ['book']
 
     def get_queryset(self):
         #filtrate by user
         return Share.objects.filter(reader=get_reader(self.request))
+
+@user_passes_test(reader_check)
+def share_book(request, pk):
+    book = Books.objects.get(pk=pk)
+    #get username from request
+    data = json.loads(request.body)
+    receptor_username = data['username']
+    try:
+        receptor = Reader.objects.get(username=receptor_username)
+        share = Share(reader=receptor, book=book)
+        share.save()
+        owner_share = OwnerShare(share=share, book_owner=request.user.reader)
+        owner_share.save()
+        return redirect('book_view', pk)
+    except Reader.DoesNotExist:
+        response_data = {'status': 'Error', 'message': 'User does not exist'}
+        return JsonResponse(response_data)
 
 @user_passes_test(reader_check)
 def logout_request(request):

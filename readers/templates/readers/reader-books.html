@@ -4,12 +4,18 @@
 <link rel="stylesheet" type="text/css" href="{% static 'readers/reader-home.css' %}">
 
 {% block content %}
+<script src="{% static 'readers/js/confirm_share.js' %}"></script>
 
 <div class="books-container">
+    {% csrf_token %}
     {% for purchase in Purchases %}
         <div class="book-item">
             <img src="{{ purchase.book.image_url }}" alt="{{ purchase.book.book_name }}" width="200" height="300">
             <p><a href="{% url 'book_view'  pk=purchase.book.id %}">d</a>{{ purchase.book.book_name }} - {{ purchase.book.description }}</p>
+            <script>
+                window.pk = '{{ purchase.book.pk }}';
+            </script>
+            <button id="share">Share with someone</button>
         </div>
     {% endfor %}
 </div>
