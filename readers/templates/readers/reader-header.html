@@ -1,0 +1,9 @@
+{% extends "header.html" %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'readers/reader-home.css' %}">
+
+{% block content %}
+<a>My books</a>
+<a>My reviews</a>
+<a href="{% url 'profile_view' %}">Profile</a>

@@ -1,20 +1,28 @@
-{% extends "header.html" %}
+{% extends "reader-header.html" %}
 {% load static %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'readers/reader-home.css' %}">
 
 
 {% block content %}
-<a>My books</a>
-<a>My reviews</a>
-<a>Profile</a>
+<script>
+    window.pk = '{{ book.pk }}';
+</script>
 <script src="{% static 'readers/js/confirm_purchase.js' %}"></script>
 
 <div class="books-container">
         <div class="book-item">
             <img src="{{ book.image_url }}" alt="{{ book.book_name }}" width="200" height="300">
             <p>{{ book.book_name }} - {{ book.description }}</p>
-            <button id="myButton">Comprar</button>
+            {% csrf_token %}
+            {% if purchased %}
+                <p>Already purchased</p>
+            {% elif borrowed %}
+                <p>Borrowed</p>
+                <button id="myButton">Buy</button>
+            {% else %}
+                <button id="myButton">Buy</button>
+            {% endif %} 
         </div>
 </div>
 

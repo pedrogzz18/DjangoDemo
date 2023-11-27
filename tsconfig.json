@@ -4,8 +4,10 @@
     "module": "commonjs",
     "outDir": "static/readers/js",
     "rootDir": "static/readers/ts",
-    "strict": true
+    "strict": true,
+    "noImplicitAny": false,
   },
   "include": ["./static/readers/**/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  
 }

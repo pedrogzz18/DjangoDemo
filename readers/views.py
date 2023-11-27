@@ -1,3 +1,6 @@
+from typing import Any
+from django.urls import reverse
+from django.db import models
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils.decorators import method_decorator
@@ -5,6 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from ourbooks.views import reader_check
 from ourbooks.models import Reader, Editorial
 from Editoriales.models import Books
+from readers.models import Ownership
 from django.views.generic import ListView
 from django.views.generic.edit import UpdateView
 from django.views.generic.detail import DetailView
@@ -41,11 +45,26 @@ class ReaderHome(ListView):
 
         return context
 
+
+
 @method_decorator(user_passes_test(reader_check), name='dispatch')
 class BookDetailView(DetailView):
     model = Books
     template_name = 'readers/book-view.html'
     context_object_name = 'book'
+
+    def get_context_data(self, **kwargs):
+            # Add additional context variables here
+            context = super().get_context_data(**kwargs)
+            candidates = Ownership.objects.filter(reader_id=self.request.user.reader.id, book_id=self.kwargs['pk'])
+            context['purchased'] = False
+            context['shared'] = False
+            for candidate in candidates:
+                if(candidate.is_purchase == True):
+                    context['purchased'] = True
+                if(candidate.is_borrowed):
+                    context['shared'] = True
+            return context
 
 @method_decorator(user_passes_test(reader_check), name='dispatch')
 class ReaderUpdateView(UpdateView):
@@ -59,5 +78,12 @@ class ReaderUpdateView(UpdateView):
     def get_object(self, queryset=None):
         self.kwargs['pk'] = self.request.user.reader.id
         pk = self.kwargs.get('pk')
-        print(pk)
         return self.model.objects.get(pk=pk)
+
+@user_passes_test(reader_check)
+def buy_book(request, pk):
+    book = Books.objects.get(pk=pk)
+    ownership = Ownership(reader_id=request.user.reader, book_id=book)
+    ownership.save()
+    # Redirect to the generated URL
+    return redirect('book_view', pk)
