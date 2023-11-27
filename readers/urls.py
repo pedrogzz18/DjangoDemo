@@ -8,5 +8,6 @@ urlpatterns = [
     path('profile/', views.ReaderUpdateView.as_view(), name="profile_view"),
     path('books/buy/<int:pk>', views.buy_book, name='buy_book'),
     path('mybooks/', views.MyBooksListView.as_view(), name='my_books'),
+    path('shared-with-me/', views.SharedWithMeView.as_view(), name='shared_with_me'),
     path('logout/', views.logout_request, name='logout'),
 ]

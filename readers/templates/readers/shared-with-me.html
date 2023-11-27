@@ -1,0 +1,17 @@
+{% extends "readers/reader-header.html" %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'readers/reader-home.css' %}">
+
+{% block content %}
+
+<div class="books-container">
+    {% for share in Shares %}
+        <div class="book-item">
+            <img src="{{ share.book.image_url }}" alt="{{ share.book.book_name }}" width="200" height="300">
+            <p><a href="{% url 'book_view'  pk=share.book.id %}">d</a>{{ share.book.book_name }} - {{ share.book.description }}</p>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
