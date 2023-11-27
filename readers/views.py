@@ -44,7 +44,7 @@ class ReaderHome(ListView):
 @method_decorator(user_passes_test(reader_check), name='dispatch')
 class BookDetailView(DetailView):
     model = Books
-    template_name = 'book-view.html'
+    template_name = 'readers/book-view.html'
     context_object_name = 'book'
 
 @method_decorator(user_passes_test(reader_check), name='dispatch')
