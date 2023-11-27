@@ -100,7 +100,8 @@ class MyBooksListView(ListView):
     def get_queryset(self):
         #filtrate by user
         return Purchase.objects.filter(reader=get_reader(self.request))
-    
+
+@user_passes_test(reader_check)
 def logout_request(request):
     logout(request)
     return redirect('/accounts/login')
