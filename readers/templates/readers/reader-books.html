@@ -11,7 +11,7 @@
     {% for purchase in Purchases %}
         <div class="book-item">
             <img src="{{ purchase.book.image_url }}" alt="{{ purchase.book.book_name }}" width="200" height="300">
-            <p><a href="{% url 'book_view'  pk=purchase.book.id %}">{{ purchase.book.book_name }} - {{ purchase.book.description }}</a></p>
+            <p><a href="{% url 'book_view'  pk=purchase.book.pk %}">{{ purchase.book.book_name }} - {{ purchase.book.description }}</a></p>
             <script>
                 window.pk = '{{ purchase.book.pk }}';
             </script>

@@ -1,7 +1,7 @@
 "use strict";
 var pk;
 document.addEventListener('DOMContentLoaded', () => {
-    const button = document.getElementById('share');
+    const button = document.getElementById('myButton');
     if (button) {
         button.addEventListener('click', () => {
             // Utiliza la función `confirm` para mostrar un cuadro de confirmación
