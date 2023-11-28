@@ -6,22 +6,7 @@
 
 
 {% block content %}
-<h1>Hi {{ reader.username }}!</h1>
-<p> What's new? </p>
 
-<link
-  rel="stylesheet"
-  href="https://unpkg.com/@trevoreyre/autocomplete-js/dist/style.css"
-/>
-
-<div id="autocomplete" class="autocomplete">
-    <input class="autocomplete-input" />
-    <ul class="autocomplete-result-list"></ul>
-  </div>
-{% csrf_token %}
-<script src="https://unpkg.com/@trevoreyre/autocomplete-js"></script>
-<script src="{% static 'readers/js/searchbar_autocomplete.js' %}"></script>
-<p id="resultado"></p>
 <div class="books-container">
     {% for book in Books %}
         <div class="book-item">

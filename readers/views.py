@@ -14,7 +14,7 @@ from django.views.generic.edit import UpdateView
 from django.views.generic.detail import DetailView
 from django.shortcuts import get_object_or_404
 from django.views import View
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.contrib.auth import logout
 import datetime
@@ -48,7 +48,16 @@ class ReaderHome(ListView):
 
         return context
 
+@user_passes_test(reader_check)
+def reader_home_filtered(request, title):
+    print(title)
+    books = Books.objects.filter(book_name=title)
+    return render(request, 'readers/reader-home-filtered.html', {'Books' : books})
 
+@user_passes_test(reader_check)
+def redirect_home_filtered(request):
+    title = request.GET.get("title")
+    return redirect('reader_home_filtered', title)
 
 @method_decorator(user_passes_test(reader_check), name='dispatch')
 class BookDetailView(DetailView):
@@ -135,3 +144,15 @@ def share_book(request, pk):
 def logout_request(request):
     logout(request)
     return redirect('/accounts/login')
+
+# search/?title=
+def search_books(request):
+    title = request.GET.get('title')
+    if(title == None):
+        return JsonResponse({'status' : 200, 'data' : []})
+    books = Books.objects.filter(book_name__icontains=title)
+    payload = []
+
+    for book in books:
+        payload.append(book.book_name)
+    return JsonResponse({'status' : 200, 'data' : payload})
