@@ -1,0 +1,31 @@
+
+{% extends "header.html" %}
+{% block content%}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'editorials/home.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'ourbooks/header.css' %}">
+
+<h1 class="titles">My Books</h1>
+
+<a href="{% url 'addbook' %}" class="btn3"> Add New Book</a>
+
+<ul class="BookSection">
+    {% for book in my_books %}
+    <li class="item">
+        <div class="book">
+            <img src= "{{ book.image_url }}" alt="Image URL" class="info">
+            <div class="info">
+                <h3>{{ book.book_name }}</h3>
+                <p>Author: {{ book.author_first_name }} {{ book.author_last_name }}</p>
+                <br>
+                <p>Number of Pages: {{ book.pages }} </p>
+                <br>
+                <p>ISBN: {{ book.ISBN}}</p>
+                <a href="{% url 'delete_book' pk=book.pk %}" class="btn2">Delete</a>
+                <a href="{% url 'update_book' pk=book.pk %}" class="btn1">Update</a>
+            </div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,6 +1,11 @@
 from django.shortcuts import render
 from .forms import BookForm
 from .models import Books
+from ourbooks.views import editorial_check
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.views.generic.edit import DeleteView, UpdateView
+from django.urls import reverse_lazy
+from django import forms
 
 # Create your views here.
 def create_book(request):
@@ -16,7 +21,9 @@ def create_book(request):
             book.image_url = form.cleaned_data['image_url']
             book.author_first_name = form.cleaned_data['author_first_name']
             book.author_last_name = form.cleaned_data['author_last_name']
-            book.editorial_mail = request.user
+            book.ISBN = form.cleaned_data['ISBN']
+            book.editorial_mail = request.user.email
+            book.price = form.cleaned_data['price']
             # Here, you can save the data to your database or perform other actions
             # For demonstration purposes, let's just print the data
             
@@ -24,18 +31,32 @@ def create_book(request):
             #print(f'Book Name: {book_name}, Description: {description}, pages: {pages}')
             print(book.editorial_mail)
             # Redirect to a success page or render a new template
-            my_books = Books.objects.filter(editorial_mail = request.user)
-            return render(request, 'EditorialSite/base.html', {'my_books':my_books})
+            my_books = Books.objects.filter(editorial_mail = request.user.email)
+            return render(request, 'editoriales-home.html', {'my_books':my_books})
     else:
         form = BookForm()
+        return render(request, 'AddBook.html', {'form': form})
+    
 
-    return render(request, 'AddBook.html', {'form': form})
-
-def editorial_view(request):
-    my_books = Books.objects.filter(editorial_mail = request.user)
-    return render(request, "base.html", {'my_books': my_books})
 
 def editorial_add_book_view(request):
     form = BookForm(request.POST)
     
     return render(request, "AddBook.html", {'form': form})
+
+
+@user_passes_test(editorial_check)
+def editorial_home(request):
+    my_books = Books.objects.filter(editorial_mail = request.user)
+    return render(request, 'editoriales-home.html',{'my_books': my_books})
+
+class BookDeleteView(DeleteView):
+    model = Books
+    success_url = reverse_lazy('editorial_home')
+    template_name = 'book_delete_confirmation.html'
+
+class BookUpdateView(UpdateView):
+    model = Books
+    fields = ['book_name', 'pages', 'price','publication_year', 'description', 'image_url', 'author_first_name', 'author_last_name']
+    template_name = 'books_form.html'
+    success_url = reverse_lazy('editorial_home')

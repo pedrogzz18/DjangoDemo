@@ -1,0 +1,16 @@
+
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'editorials/update.css' %}">
+  <div class="login-form">
+    <h1 class="editiontitle">Edition</h1>
+    <form method="post" action="" class="login">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="savebtn">Save changes</button>
+    </form>
+    <a href="{% url 'editorial_home' %}" class="cancelbtn">Cancel</a>
+  </div>
+
+{% endblock %}
