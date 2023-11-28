@@ -11,8 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-from django.urls import reverse_lazy
-from django.shortcuts import redirect
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -40,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ourbooks.apps.OurbooksConfig',
     'readers.apps.ReadersConfig',
+    'Editoriales.apps.EditorialesConfig',
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,20 @@
+{% extends "header.html" %}
+{% load static %}
+
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'editorials/update.css' %}">
+
+<div class="login-form">
+    <h1 class="createbooktitle">Create Book</h2>
+    <form method ="post" action="{% url 'create_book' %}">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit" value = "Create Book" class="savebtn">Submit</button>
+        <a href="{% url 'editorial_home' %}" class="cancelbtn">Cancel</a>
+    </form>
+    
+</div>
+
+{% endblock %}
