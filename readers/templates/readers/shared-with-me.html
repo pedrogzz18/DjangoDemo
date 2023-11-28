@@ -9,7 +9,7 @@
     {% for share in Shares %}
         <div class="book-item">
             <img src="{{ share.book.image_url }}" alt="{{ share.book.book_name }}" width="200" height="300">
-            <p><a href="{% url 'book_view'  pk=share.book.id %}">d</a>{{ share.book.book_name }} - {{ share.book.description }}</p>
+            <p><a href="{% url 'book_view'  pk=share.book.id %}">{{ share.book.book_name }} - {{ share.book.description }}</a></p>
         </div>
     {% endfor %}
 </div>
