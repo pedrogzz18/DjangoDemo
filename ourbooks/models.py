@@ -1,12 +1,6 @@
-from django.contrib.auth.models import UserManager, AbstractBaseUser, BaseUserManager, PermissionsMixin, Group, Permission
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, Group, Permission
 from django.db import models
 from django.conf import settings
-
-class libros:
-    pass
-
-class libros_editorial:
-    pass
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):

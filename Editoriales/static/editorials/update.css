@@ -1,0 +1,75 @@
+body {
+	font-family: Arial;
+}
+
+.login-form {
+	display: flex;
+	width: 420px;
+	flex-direction: column;
+	margin: auto;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    font-family:'Courier New', Courier, monospace;
+}
+
+.editiontitle{
+    text-align: center;
+    width: 100%;
+    background-color:aqua;
+    padding: 4px;
+}
+
+.createbooktitle{
+    text-align: center;
+    width: 100%;
+    background-color:aqua;
+    padding: 4px;
+}
+
+input[type=submit]{
+	background-color: #3A10E5;
+	color: white;
+	padding: 10px 14px;
+	margin: 8px 0;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	width: 100%;
+	font-size: 18px;
+}
+
+.cancelbtn{
+    font-family: "Roboto", sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+    background: orange;
+    width: 160px;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgb(0, 0, 0, 0.1);
+    margin-top: 15px;
+}
+
+.savebtn{
+    font-family: "Roboto", sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+    background: green;
+    width: 160px;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgb(0, 0, 0, 0.1);
+    margin-top: 15px;
+}
+

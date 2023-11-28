@@ -58,16 +58,10 @@ def reader_registration(request):
 def redirect_home(request):
     if request.user.is_authenticated:
         if hasattr(request.user, 'editorial'):
-            return redirect('/editorial-home')
+            return redirect('/Editoriales/home')
         elif hasattr(request.user, 'reader'):
-            return redirect('/reader-home')
+            return redirect('/readers/home')
     else:
         return redirect('/accounts/login')
     
-@user_passes_test(editorial_check)
-def editorial_home(request):
-    return render(request, 'editorial-home.html')
-    
-@user_passes_test(reader_check)
-def reader_home(request):
-    return render(request, 'editorial-home.html')
+
