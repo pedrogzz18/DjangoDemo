@@ -58,7 +58,7 @@ def reader_registration(request):
 def redirect_home(request):
     if request.user.is_authenticated:
         if hasattr(request.user, 'editorial'):
-            return redirect('/editorial-home')
+            return redirect('/EditorialSite/base')
         elif hasattr(request.user, 'reader'):
             return redirect('/readers/home')
     else:
