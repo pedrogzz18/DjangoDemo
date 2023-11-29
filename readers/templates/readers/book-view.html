@@ -20,24 +20,37 @@
             {% elif borrowed %}
                 <p>Borrowed</p>
                 <button id="myButton">Buy</button>
-
             {% else %}
                 <button id="myButton">Buy</button>
-                
             {% endif %} 
-            <div class="book-reviews">
-                <h2>Reseñas</h2>
-                {% for review in reviews %}
-                    <div class="review">
-                        <p><strong>Usuario:</strong> {{ review.user.username }}</p>
-                        <p><strong>Calificación:</strong> {{ review.rating }}</p>
-                        <p><strong>Comentario:</strong> {{ review.comment }}</p>
-                    </div>
-                {% empty %}
-                    <p>No hay reseñas aún.</p>
-                {% endfor %}
-            </div>
         </div>
 </div>
 
+
+<div class="book-reviews">
+    <h2>Reseñas</h2>
+    {% for review in reviews %}
+        <div class="review">
+            <p><strong>Usuario:</strong> {{ review.reader.username }}</p>
+            <p><strong>Calificación:</strong> {{ review.rating }}</p>
+            <p><strong>Comentario:</strong> {{ review.comment }}</p>
+            <p><strong>Fecha:</strong> {{ review.date }}</p>
+        </div>
+    {% empty %}
+        <p>No hay reseñas aún.</p>
+    {% endfor %}
+
+    <form method="post" action="{% url 'book_view' book.pk %}">
+        {% csrf_token %}
+        <!-- Campo oculto para el PK del libro -->
+        <input type="hidden" name="book_pk" value="{{ book.pk }}">
+
+        <!-- Campos para la calificación y el comentario -->
+        <input type="number" name="rating" placeholder="Calificación" min="1" max="5" required>
+        <textarea name="comment" placeholder="Escribe tu comentario aquí" required></textarea>
+
+        <!-- Botón de envío -->
+        <button type="submit">Enviar Reseña</button>
+    </form>
+</div>
 {% endblock %}

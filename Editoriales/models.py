@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 class Books(models.Model):
@@ -13,3 +14,6 @@ class Books(models.Model):
     ISBN = models.CharField(max_length=13, primary_key=True)
     price = models.FloatField()
 
+
+    def get_absolute_url(self):
+        return reverse('book-detail', kwargs={'pk': self.pk})

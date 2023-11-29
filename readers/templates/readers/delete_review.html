@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Eliminar Reseña</title>
+</head>
+<body>
+    <h1>¿Estás seguro de que quieres eliminar esta reseña?</h1>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Eliminar">
+    </form>
+    <a href="{% url 'my-reviews' %}">Cancelar</a>
+</body>
+</html>

@@ -28,5 +28,8 @@ class Review(models.Model):
     reader = models.ForeignKey(to=Reader, on_delete=models.CASCADE)
     rating = models.IntegerField()
     comment = models.TextField()
+    date = models.DateTimeField()
     class Meta:
         unique_together = ('book', 'reader')
+
+
