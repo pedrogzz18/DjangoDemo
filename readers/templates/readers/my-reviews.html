@@ -1,30 +1,61 @@
- <div class="my-reviews">
+<div class="my-reviews">
     <h2>Mis Reseñas</h2>
+    <a href="{% url 'reader_home' %}" class="btn-back">Home</a>
     {% if page_obj.has_other_pages %}
         <div class="pagination">
             <!-- Controles de paginación -->
-            ...
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <strong>{{ num }}</strong>
+                {% else %}
+                    <a href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+            {% endif %}
         </div>
     {% endif %}
 
     {% for review in page_obj %}
-    <div class="review">
-        <p><strong>Book name:</strong> {{ review.book.book_name }}</p>
-        <p><strong>rating:</strong> {{ review.rating }}</p>
-        <p><strong>comment:</strong> {{ review.comment }}</p>
-        <p><strong>date</strong> {{ review.date }}</p>
-        <!-- Botones de acción -->
-        <a href="{% url 'edit_review' review.pk %}">Editar</a>
-        <a href="{% url 'delete_review' review.pk %}">Borrar</a>
-    </div>
-{% empty %}
-    <p>Aún no has escrito ninguna reseña.</p>
-{% endfor %}
+        <div class="review">
+            <p><strong>Book name:</strong> {{ review.book.book_name }}</p>
+            <p><strong>rating:</strong> {{ review.rating }}</p>
+            <p><strong>comment:</strong> {{ review.comment }}</p>
+            <p><strong>date:</strong> {{ review.date }}</p>
+            <!-- Botones de acción -->
+            <a href="{% url 'edit_review' review.pk %}">Editar</a>
+            <a href="{% url 'delete_review' review.pk %}">Borrar</a>
+        </div>
+    {% empty %}
+        <p>Aún no has escrito ninguna reseña.</p>
+    {% endfor %}
+
     {% if page_obj.has_other_pages %}
         <div class="pagination">
-            <!-- Controles de paginación -->
-            ...
+            <!-- Controles de paginación repetidos -->
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <strong>{{ num }}</strong>
+                {% else %}
+                    <a href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+            {% endif %}
         </div>
     {% endif %}
 </div>
+
 
