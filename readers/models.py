@@ -23,4 +23,10 @@ class OwnerShare(models.Model):
     class Meta:
         unique_together = ('share', 'book_owner',)
 
-
+class Review(models.Model):
+    book = models.ForeignKey(to=Books, on_delete=models.CASCADE)
+    reader = models.ForeignKey(to=Reader, on_delete=models.CASCADE)
+    rating = models.IntegerField()
+    comment = models.TextField()
+    class Meta:
+        unique_together = ('book', 'reader')

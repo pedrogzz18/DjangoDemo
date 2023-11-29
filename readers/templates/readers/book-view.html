@@ -26,4 +26,16 @@
         </div>
 </div>
 
+<div class="book-reviews">
+    <h2>Reseñas</h2>
+    {% for review in reviews %}
+        <div class="review">
+            <p><strong>Usuario:</strong> {{ review.user.username }}</p>
+            <p><strong>Calificación:</strong> {{ review.rating }}</p>
+            <p><strong>Comentario:</strong> {{ review.comment }}</p>
+        </div>
+    {% empty %}
+        <p>No hay reseñas aún.</p>
+    {% endfor %}
+</div>
 {% endblock %}
