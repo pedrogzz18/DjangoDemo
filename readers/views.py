@@ -1,5 +1,7 @@
 from typing import Any
 from django.urls import reverse
+from django.core.exceptions import ValidationError
+from django.http import HttpResponseBadRequest
 from django.db import models
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -85,21 +87,21 @@ class BookDetailView(DetailView):
             
             return context
     
+   
     def post(self, request, *args, **kwargs):
-        book = self.get_object()
-        rating = request.POST.get('rating')
-        comment = request.POST.get('comment')
-
-        review, created = Review.objects.get_or_create(
-            book=book,
-            reader=request.user.reader
-        )
-        review.rating = rating
-        review.comment = comment
-        review.date = timezone.now()
-        review.save()
-
-        return redirect('book_view', pk=book.pk)
+        self.object = self.get_object()
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.book = self.object
+            review.reader = request.user.reader
+            review.date = timezone.now()
+            review.save()
+            return redirect('book_view', pk=self.object.pk)
+        else:
+            # Si el formulario no es válido, renderizar la página con el formulario y errores
+            context = self.get_context_data(form=form)
+            return render(request, self.template_name, context)
 
 @method_decorator(user_passes_test(reader_check), name='dispatch')
 class ReaderUpdateView(UpdateView):
@@ -193,17 +195,19 @@ def my_reviews(request):
 def edit_review(request, pk):
     review = get_object_or_404(Review, pk=pk)
     if request.method == "POST":
-        form = ReviewForm(request.POST, instance=Review)
+        form = ReviewForm(request.POST, instance=review)  # Corrección aquí
         if form.is_valid():
             form.save()
-            return redirect('readers/my-reviews')
+        return redirect('my-reviews')    
     else:
         form = ReviewForm(instance=review)
     return render(request, 'readers/edit_review.html', {'form': form})
+    
+
 
 def delete_review(request, pk):
     review = get_object_or_404(Review, pk=pk)
     if request.method == "POST":
         review.delete()
-        return redirect('readers/my-reviews')
+        return redirect('my-reviews')
     return render(request, 'readers/delete_review.html', {'review': Review})
