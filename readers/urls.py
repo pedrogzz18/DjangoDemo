@@ -14,4 +14,8 @@ urlpatterns = [
     path('shared-with-me/', views.SharedWithMeView.as_view(), name='shared_with_me'),
     path('logout/', views.logout_request, name='logout'),
     path('home/search/', views.search_books),
+    path('my-reviews/', views.my_reviews, name='my-reviews'),
+    path('my-reviews/edit/<int:pk>/', views.edit_review, name='edit_review'),
+    path('my-reviews/delete/<int:pk>/', views.delete_review, name='delete_review'),
 ]
+    

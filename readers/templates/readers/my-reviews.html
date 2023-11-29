@@ -1,0 +1,30 @@
+ <div class="my-reviews">
+    <h2>Mis Reseñas</h2>
+    {% if page_obj.has_other_pages %}
+        <div class="pagination">
+            <!-- Controles de paginación -->
+            ...
+        </div>
+    {% endif %}
+
+    {% for review in page_obj %}
+    <div class="review">
+        <p><strong>Book name:</strong> {{ review.book.book_name }}</p>
+        <p><strong>rating:</strong> {{ review.rating }}</p>
+        <p><strong>comment:</strong> {{ review.comment }}</p>
+        <p><strong>date</strong> {{ review.date }}</p>
+        <!-- Botones de acción -->
+        <a href="{% url 'edit_review' review.pk %}">Editar</a>
+        <a href="{% url 'delete_review' review.pk %}">Borrar</a>
+    </div>
+{% empty %}
+    <p>Aún no has escrito ninguna reseña.</p>
+{% endfor %}
+    {% if page_obj.has_other_pages %}
+        <div class="pagination">
+            <!-- Controles de paginación -->
+            ...
+        </div>
+    {% endif %}
+</div>
+

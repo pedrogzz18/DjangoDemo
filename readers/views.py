@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from ourbooks.views import reader_check
 from ourbooks.models import Reader, Editorial
 from Editoriales.models import Books
-from readers.models import Purchase, Share, OwnerShare
+from readers.models import Purchase, Share, OwnerShare, Review 
 from django.views.generic import ListView
 from django.views.generic.edit import UpdateView
 from django.views.generic.detail import DetailView
@@ -20,6 +20,9 @@ from django.contrib.auth import logout
 import datetime
 import json
 from django.http import JsonResponse
+from django.core.paginator import Paginator
+from django.utils import timezone
+from readers.forms import ReviewForm
 # Create your views here.
 
 @user_passes_test(reader_check)
@@ -81,6 +84,22 @@ class BookDetailView(DetailView):
             context['reviews'] = Review.objects.filter(book=self.get_object())
             
             return context
+    
+    def post(self, request, *args, **kwargs):
+        book = self.get_object()
+        rating = request.POST.get('rating')
+        comment = request.POST.get('comment')
+
+        review, created = Review.objects.get_or_create(
+            book=book,
+            reader=request.user.reader
+        )
+        review.rating = rating
+        review.comment = comment
+        review.date = timezone.now()
+        review.save()
+
+        return redirect('book_view', pk=book.pk)
 
 @method_decorator(user_passes_test(reader_check), name='dispatch')
 class ReaderUpdateView(UpdateView):
@@ -160,3 +179,31 @@ def search_books(request):
         payload.append(book.book_name)
     return JsonResponse({'status' : 200, 'data' : payload})
 
+
+@login_required
+def my_reviews(request):
+    reader_profile = get_object_or_404(Reader, user=request.user)
+    user_reviews = Review.objects.filter(reader=reader_profile).select_related('book').order_by('-date')
+    paginator = Paginator(user_reviews, 10) 
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'readers/my-reviews.html', {'page_obj': page_obj})
+
+def edit_review(request, pk):
+    review = get_object_or_404(Review, pk=pk)
+    if request.method == "POST":
+        form = ReviewForm(request.POST, instance=Review)
+        if form.is_valid():
+            form.save()
+            return redirect('readers/my-reviews')
+    else:
+        form = ReviewForm(instance=review)
+    return render(request, 'readers/edit_review.html', {'form': form})
+
+def delete_review(request, pk):
+    review = get_object_or_404(Review, pk=pk)
+    if request.method == "POST":
+        review.delete()
+        return redirect('readers/my-reviews')
+    return render(request, 'readers/delete_review.html', {'review': Review})
