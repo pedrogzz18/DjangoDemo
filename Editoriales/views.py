@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import BookForm
 from .models import Books
 from ourbooks.views import editorial_check
@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.views.generic.edit import DeleteView, UpdateView
 from django.urls import reverse_lazy
 from django import forms
+from django.contrib.auth import logout
 
 # Create your views here.
 def create_book(request):
@@ -60,3 +61,7 @@ class BookUpdateView(UpdateView):
     fields = ['book_name', 'pages', 'price','publication_year', 'description', 'image_url', 'author_first_name', 'author_last_name']
     template_name = 'books_form.html'
     success_url = reverse_lazy('editorial_home')
+
+def logout_editorial(request):
+    logout(request)
+    return redirect('/accounts/login')

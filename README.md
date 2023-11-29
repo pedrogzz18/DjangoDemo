@@ -1,6 +1,6 @@
 # DjangoDemo
 PIA de la materia lenguajes modernos
-Install node.js globally and 
+Install node.js globally and inside of the root dir:
 npm install -g typescript
 then, inside of the root directory run 'npm build run'
 and 'npx tsc'

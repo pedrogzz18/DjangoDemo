@@ -9,4 +9,5 @@ urlpatterns = [
     path('home/', views.editorial_home, name="editorial_home"),
     path('book/<int:pk>/delete/', views.BookDeleteView.as_view(), name='delete_book'),
     path('book/<int:pk>/update/', views.BookUpdateView.as_view(), name = 'update_book'),
+    path('logout/', views.logout_editorial, name = 'logout'),
 ]

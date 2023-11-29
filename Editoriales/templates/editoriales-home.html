@@ -8,6 +8,7 @@
 <h1 class="titles">My Books</h1>
 
 <a href="{% url 'addbook' %}" class="btn3"> Add New Book</a>
+<a href="{% url 'logout' %}" class="logout"> Logout</a>
 
 <ul class="BookSection">
     {% for book in my_books %}

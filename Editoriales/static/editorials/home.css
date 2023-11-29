@@ -108,6 +108,23 @@ h3{
     margin: 20px;
 }
 
+.logout{
+    font-family: "Roboto", sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    background: red;
+    width: 160px;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgb(0, 0, 0, 0.1);
+    margin: 20px;
+}
+
 .info p{
     margin: 5px;
 }

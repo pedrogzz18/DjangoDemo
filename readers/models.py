@@ -6,7 +6,7 @@ class Purchase(models.Model):
     book = models.ForeignKey(to=Books, on_delete=models.CASCADE)
     reader = models.ForeignKey(to=Reader, on_delete=models.CASCADE)
     date = models.DateField()
-
+    
     class Meta:
         unique_together = ('reader', 'book',)
 
