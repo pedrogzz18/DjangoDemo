@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from ourbooks.views import reader_check
 from ourbooks.models import Reader, Editorial
 from Editoriales.models import Books
-from readers.models import Purchase, Share, OwnerShare
+from readers.models import Purchase, Share, OwnerShare, Review
 from django.views.generic import ListView
 from django.views.generic.edit import UpdateView
 from django.views.generic.detail import DetailView
@@ -77,6 +77,9 @@ class BookDetailView(DetailView):
             context['shared'] = False
             if(candidate.exists()):
                 context['shared'] = True
+
+            context['reviews'] = Review.objects.filter(book=self.get_object())
+            
             return context
 
 @method_decorator(user_passes_test(reader_check), name='dispatch')
@@ -156,3 +159,4 @@ def search_books(request):
     for book in books:
         payload.append(book.book_name)
     return JsonResponse({'status' : 200, 'data' : payload})
+
