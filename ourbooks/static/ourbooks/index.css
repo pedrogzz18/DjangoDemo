@@ -1,0 +1,54 @@
+.bottons{
+    margin: 150px;
+}
+
+.btn1{
+    font-family: "Roboto", sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    background: #0b9e1c;
+    width: 300px;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgb(0, 0, 0, 0.1);
+    margin: 20px;
+}
+
+.btn2{
+    font-family: "Roboto", sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    background: blue;
+    width: 300px;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgb(0, 0, 0, 0.1);
+    margin: 20px;
+}
+
+.btn3{
+    font-family: "Roboto", sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    background: orange;
+    width: 300px;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgb(0, 0, 0, 0.1);
+    margin: 20px;
+}

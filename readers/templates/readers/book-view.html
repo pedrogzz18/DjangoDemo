@@ -5,24 +5,32 @@
 
 
 {% block content %}
+<link rel="stylesheet"type="text/css" href="{% static 'readers/my-reviews.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script>
     window.pk = '{{ book.pk }}';
 </script>
 <script src="{% static 'readers/js/confirm_purchase.js' %}"></script>
 
-<div class="books-container">
-        <div class="book-item">
-            <img src="{{ book.image_url }}" alt="{{ book.book_name }}" width="200" height="300">
-            <p>{{ book.book_name }} - {{ book.description }}</p>
-            {% csrf_token %}
-            {% if purchased %}
-                <p>Already purchased</p>
-            {% elif borrowed %}
-                <p>Borrowed</p>
-                <button id="myButton">Buy</button>
-            {% else %}
-                <button id="myButton">Buy</button>
-            {% endif %} 
+<div class="BookSection">
+        <div class="item">
+            <div class="book">
+                <img src="{{ book.image_url }}" alt="{{ book.book_name }}" width="200" height="300">
+                <div class="info">
+                    <h2>{{book.book_name}}</h2> by {{book.author_first_name}} {{book.author_last_name}}
+                    <p>Description: {{ book.description }}</p>
+                    {% csrf_token %}
+                    {% if purchased %}
+                        <p>Already purchased</p>
+                    {% elif borrowed %}
+                        <p>Borrowed</p>
+                        <button id="myButton">Buy</button>
+                    {% else %}
+                        <button id="myButton">Buy</button>
+                    {% endif %} 
+                </div>
+            </div>
+
         </div>
 </div>
 
@@ -31,26 +39,28 @@
     <h2>Reseñas</h2>
     {% for review in reviews %}
         <div class="review">
-            <p><strong>Usuario:</strong> {{ review.reader.username }}</p>
-            <p><strong>Calificación:</strong> {{ review.rating }}</p>
-            <p><strong>Comentario:</strong> {{ review.comment }}</p>
-            <p><strong>Fecha:</strong> {{ review.date }}</p>
+            <i class="fa fa-user" style="font-size:24px"></i> {{ review.reader.username }}
+            
+            <p><strong>Rating:</strong> {{ review.rating }}</p>
+            <p><strong>Review:</strong> {{ review.comment }}</p>
+            <p><strong>Date:</strong> {{ review.date }}</p>
         </div>
     {% empty %}
         <p>No hay reseñas aún.</p>
     {% endfor %}
-
-    <form method="post" action="{% url 'book_view' book.pk %}">
-        {% csrf_token %}
-        <!-- Campo oculto para el PK del libro -->
-        <input type="hidden" name="book_pk" value="{{ book.pk }}">
-
-        <!-- Campos para la calificación y el comentario -->
-        <input type="number" name="rating" placeholder="Calificación" min="1" max="5" required>
-        <textarea name="comment" placeholder="Escribe tu comentario aquí" required></textarea>
-
-        <!-- Botón de envío -->
-        <button type="submit">Enviar Reseña</button>
-    </form>
+    <div class="reviewbtn">
+        <form method="post" action="{% url 'book_view' book.pk %}">
+            {% csrf_token %}
+            <!-- Campo oculto para el PK del libro -->
+            <input type="hidden" name="book_pk" value="{{ book.pk }}">
+    
+            <!-- Campos para la calificación y el comentario -->
+            <textarea name="comment" placeholder="Write your book review here" rows="6" cols="40" class="txt" required></textarea>
+            <br>
+            <input type="number" name="rating" placeholder="Ranking" min="1" max="5" class="rank" required>
+            <!-- Botón de envío -->
+            <button type="submit">Send Review</button>
+        </form>
+    </div>
 </div>
 {% endblock %}

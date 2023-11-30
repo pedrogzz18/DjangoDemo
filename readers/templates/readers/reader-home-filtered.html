@@ -6,13 +6,21 @@
 
 
 {% block content %}
-
-<div class="books-container">
+<link rel="stylesheet" type="text/css" href="{% static 'readers/reader-books.css' %}">
+<div class="BookSection">
     {% for book in Books %}
-        <div class="book-item">
-            <img src="{{ book.image_url }}" alt="{{ book.book_name }}" width="200" height="300">
-            <p><a href="{% url 'book_view'  pk=book.pk %}">{{ book.book_name }} - {{ book.description }}</a></p>
+    <div class="item">
+        <div class="book">
+          <img src="{{ book.image_url }}" alt="{{ book.book_name }}" width="200" height="300">
+          <div class="info">
+            <a href="{% url 'book_view'  pk=book.pk %}">{{book.book_name}}</a>
+            <p>Number of pages : {{book.pages}}</p>
+            <p>Description: {{book.description}}</p>
+            <p>Price: ${{book.price}}</p>
+          </div>
         </div>
+          
+      </div>
     {% endfor %}
 </div>
 

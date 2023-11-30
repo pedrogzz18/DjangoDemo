@@ -1,0 +1,62 @@
+.hi{
+    font-family: 'TT Hoves Pro Trial', sans-serif;
+}
+
+.BookSection{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    list-style-type: none;
+}
+
+.item{
+    border: 1px solid black;
+    margin: 20px;
+    padding: 20 0 20 20;
+    border-radius: 5px;
+}
+
+.book{
+    display: flex;
+}
+
+.info{
+    flex: 1;
+    padding: 5px;
+    padding-left: 20px;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: "Roboto", sans-serif;
+}
+
+.info a{
+    font-size: 20px;
+    text-decoration: none;
+    background-color: #a6bddc;
+    text-align: center;
+    width: 100%;
+    font-family: "Roboto", sans-serif;
+}
+
+.info a:hover{
+    color: gray;
+}
+
+#share{
+    font-family: "Roboto", sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: rgb(126, 126, 232);
+    width: 160px;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgb(0, 0, 0, 0.1);
+    margin-top: 10px;
+    margin-left: 10px;
+}

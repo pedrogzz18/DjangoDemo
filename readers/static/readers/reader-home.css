@@ -13,3 +13,126 @@
     max-width: 100%;
     height: auto;
 }
+
+.reader-botons{
+    margin: 30px;
+    display: flex;
+    height: 100px;
+    justify-content: space-between;
+}
+
+.homeb{
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: green;
+    width: 180px;
+    padding: 30px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgb(0, 0, 0, 0.1);
+    margin-top: 10px;
+    margin-left: 10px;
+
+}
+
+
+
+.mybooksb{
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: rgb(132, 90, 7);
+    width: 180px;
+    padding: 30px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgb(0, 0, 0, 0.1);
+    margin-top: 10px;
+    margin-left: 10px;
+
+}
+.reader-botons a:hover{
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.sharedwmb{
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: rgb(19, 147, 197);
+    width: 180px;
+    padding: 30px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgb(0, 0, 0, 0.1);
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.myrevb{
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: rgb(233, 174, 64);
+    width: 180px;
+    padding: 30px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgb(0, 0, 0, 0.1);
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.profileb{
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: green;
+    width: 180px;
+    padding: 30px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgb(0, 0, 0, 0.1);
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.logout{
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: red;
+    width: 180px;
+    padding: 30px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgb(0, 0, 0, 0.1);
+    margin-top: 10px;
+    margin-left: 10px;
+}

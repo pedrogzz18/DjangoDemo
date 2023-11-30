@@ -2,11 +2,12 @@
 {% load static %}
 
 
-<link rel="stylesheet" type="text/css" href="{% static 'readers/reader-home.css' %}">
 
 
 {% block content %}
-<h1>Hi {{ reader.username }}!</h1>
+<link href="https://fonts.cdnfonts.com/css/tt-hoves-pro-trial" rel="stylesheet">
+<link rel="stylesheet"type="text/css" href="{% static 'readers/reader-books.css' %}">
+<h1 class="hi">Hi {{ reader.username }}!</h1>
 <p> What's new? </p>
 
 <link
@@ -22,11 +23,19 @@
 <script src="https://unpkg.com/@trevoreyre/autocomplete-js"></script>
 <script src="{% static 'readers/js/searchbar_autocomplete.js' %}"></script>
 <p id="resultado"></p>
-<div class="books-container">
+<div class="BookSection">
     {% for book in Books %}
-        <div class="book-item">
+        <div class="item">
+          <div class="book">
             <img src="{{ book.image_url }}" alt="{{ book.book_name }}" width="200" height="300">
-            <p><a href="{% url 'book_view'  pk=book.pk %}">{{ book.book_name }} - {{ book.description }}</a></p>
+            <div class="info">
+              <a href="{% url 'book_view'  pk=book.pk %}">{{book.book_name}}</a>
+              <p>Number of pages : {{book.pages}}</p>
+              <p>Description: {{book.description}}</p>
+              <p>Price: ${{book.price}}</p>
+            </div>
+          </div>
+            
         </div>
     {% endfor %}
 </div>

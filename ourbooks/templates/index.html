@@ -4,7 +4,12 @@
 <link rel="stylesheet" type="text/css" href="{% static 'ourbooks/header.css' %}">
 
 {% block content%}
-<a href="{% url 'signup_editorial' %}">Signup for editorials</a>
-<a href="{% url 'signup_reader' %}">Signup for readers</a>
-<a href="{% url 'login' %}">Login</a>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'ourbooks/index.css' %}">
+<div class="bottons">
+    <a href="{% url 'signup_editorial' %}" class="btn1">Signup for editorials</a>
+    <a href="{% url 'signup_reader' %}" class="btn2">Signup for readers</a>
+    <a href="{% url 'login' %}" class="btn3">Login</a>
+</div>
+
 {% endblock %}
