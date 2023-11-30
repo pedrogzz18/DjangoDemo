@@ -36,7 +36,7 @@
 
 
 <div class="book-reviews">
-    <h2>Reseñas</h2>
+    <h2>Reviews</h2>
     {% for review in reviews %}
         <div class="review">
             <i class="fa fa-user" style="font-size:24px"></i> {{ review.reader.username }}
@@ -46,7 +46,7 @@
             <p><strong>Date:</strong> {{ review.date }}</p>
         </div>
     {% empty %}
-        <p>No hay reseñas aún.</p>
+        <p>There aren't any reviews yet.</p>
     {% endfor %}
     <div class="reviewbtn">
         <form method="post" action="{% url 'book_view' book.pk %}">
